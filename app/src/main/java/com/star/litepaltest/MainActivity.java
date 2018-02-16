@@ -3,7 +3,6 @@ package com.star.litepaltest;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 
 import org.litepal.crud.DataSupport;
@@ -26,32 +25,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mCreateDatabaseButton = (Button) findViewById(R.id.create_database);
-        mCreateDatabaseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Connector.getDatabase();
-            }
+        mCreateDatabaseButton = findViewById(R.id.create_database);
+        mCreateDatabaseButton.setOnClickListener(v -> Connector.getDatabase());
+
+        mInsertDataButton = findViewById(R.id.insert_data);
+        mInsertDataButton.setOnClickListener(v -> {
+            Book book = new Book();
+            book.setName("The Da Vinci Code");
+            book.setAuthor("Dan Brown");
+            book.setPages(454);
+            book.setPrice(16.96);
+            book.setPress("Unknown");
+            book.save();
         });
 
-        mInsertDataButton = (Button) findViewById(R.id.insert_data);
-        mInsertDataButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Book book = new Book();
-                book.setName("The Da Vinci Code");
-                book.setAuthor("Dan Brown");
-                book.setPages(454);
-                book.setPrice(16.96);
-                book.setPress("Unknown");
-                book.save();
-            }
-        });
-
-        mUpdateDataButton = (Button) findViewById(R.id.update_data);
-        mUpdateDataButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        mUpdateDataButton = findViewById(R.id.update_data);
+        mUpdateDataButton.setOnClickListener(v -> {
 //                Book book = new Book();
 //                book.setName("The Lost Symbol");
 //                book.setAuthor("Dan Brown");
@@ -63,33 +52,24 @@ public class MainActivity extends AppCompatActivity {
 //                book.setPrice(10.99);
 //                book.save();
 
-                Book book = new Book();
-                book.setPrice(14.95);
-                book.setPress("Anchor");
-                book.updateAll("name = ? and author = ?", "The Lost Symbol", "Dan Brown");
-            }
+            Book book = new Book();
+            book.setPrice(14.95);
+            book.setPress("Anchor");
+            book.updateAll("name = ? and author = ?", "The Lost Symbol", "Dan Brown");
         });
 
-        mDeleteDataButton = (Button) findViewById(R.id.delete_data);
-        mDeleteDataButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DataSupport.deleteAll(Book.class, "price < ?", "15");
-            }
-        });
+        mDeleteDataButton = findViewById(R.id.delete_data);
+        mDeleteDataButton.setOnClickListener(v -> DataSupport.deleteAll(Book.class, "price < ?", "15"));
 
-        mQueryDataButton = (Button) findViewById(R.id.query_data);
-        mQueryDataButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                List<Book> books = DataSupport.findAll(Book.class);
-                for (Book book : books) {
-                    Log.d(TAG, "book name is " + book.getName());
-                    Log.d(TAG, "book author is " + book.getAuthor());
-                    Log.d(TAG, "book pages is " + book.getPages());
-                    Log.d(TAG, "book price is " + book.getPrice());
-                    Log.d(TAG, "book press is " + book.getPress());
-                }
+        mQueryDataButton = findViewById(R.id.query_data);
+        mQueryDataButton.setOnClickListener(v -> {
+            List<Book> books = DataSupport.findAll(Book.class);
+            for (Book book : books) {
+                Log.d(TAG, "book name is " + book.getName());
+                Log.d(TAG, "book author is " + book.getAuthor());
+                Log.d(TAG, "book pages is " + book.getPages());
+                Log.d(TAG, "book price is " + book.getPrice());
+                Log.d(TAG, "book press is " + book.getPress());
             }
         });
     }

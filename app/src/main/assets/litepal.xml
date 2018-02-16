@@ -5,7 +5,7 @@
     <version value="2" />
 
     <list>
-        <mapping class="com.star.litepaltest.Book"></mapping>
-        <mapping class="com.star.litepaltest.Category"></mapping>
+        <mapping class="com.star.litepaltest.Book" />
+        <mapping class="com.star.litepaltest.Category" />
     </list>
 </litepal>
