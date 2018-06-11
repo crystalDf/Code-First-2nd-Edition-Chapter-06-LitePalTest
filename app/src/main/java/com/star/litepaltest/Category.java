@@ -1,9 +1,9 @@
 package com.star.litepaltest;
 
 
-import org.litepal.crud.DataSupport;
+import org.litepal.crud.LitePalSupport;
 
-public class Category extends DataSupport {
+public class Category extends LitePalSupport {
 
     private int id;
     private String categoryName;

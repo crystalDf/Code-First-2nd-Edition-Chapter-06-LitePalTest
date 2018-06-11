@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Button;
 
-import org.litepal.crud.DataSupport;
+import org.litepal.LitePal;
 import org.litepal.tablemanager.Connector;
 
 import java.util.List;
@@ -59,11 +59,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
         mDeleteDataButton = findViewById(R.id.delete_data);
-        mDeleteDataButton.setOnClickListener(v -> DataSupport.deleteAll(Book.class, "price < ?", "15"));
+        mDeleteDataButton.setOnClickListener(v -> LitePal.deleteAll(Book.class, "price < ?", "15"));
 
         mQueryDataButton = findViewById(R.id.query_data);
         mQueryDataButton.setOnClickListener(v -> {
-            List<Book> books = DataSupport.findAll(Book.class);
+            List<Book> books = LitePal.findAll(Book.class);
             for (Book book : books) {
                 Log.d(TAG, "book name is " + book.getName());
                 Log.d(TAG, "book author is " + book.getAuthor());
